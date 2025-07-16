@@ -78,7 +78,8 @@ class AdminLogin {
             sessionStorage.setItem('admin_password', password);
 
             // Redirect to OAuth
-            window.location.href = '/auth/google/not-an-admin';
+            const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+            window.location.href = `${API_BASE}/auth/google/not-an-admin`;
         } catch (error) {
             console.error('OAuth initiation error:', error);
             this.showError('Failed to initiate email verification. Please try again.');
