@@ -88,7 +88,10 @@ class AdminLogin {
 
     async verifyEmailWithServer(email) {
         try {
-            const response = await fetch('/admin/verify-email', {
+            const API_BASE = window.location.hostname === 'localhost'
+                ? 'http://localhost:4000'
+                : 'https://fitpickd-backend.onrender.com';
+            const response = await fetch(`${API_BASE}/admin/verify-email`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
