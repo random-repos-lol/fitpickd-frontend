@@ -143,7 +143,10 @@ class AdminLogin {
         }
 
         try {
-            const response = await fetch('/admin/login', {
+            const API_BASE = window.location.hostname === 'localhost'
+                ? 'http://localhost:4000'
+                : 'https://fitpickd-backend.onrender.com';
+            const response = await fetch(`${API_BASE}/admin/login`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
