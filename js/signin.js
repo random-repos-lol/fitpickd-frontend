@@ -73,7 +73,7 @@ function handleCustomerLogin(event) {
             
             // Redirect to profile page
         setTimeout(() => {
-                window.location.href = '/html/index.html';
+                window.location.href = '/index.html';
         }, 1500);
         } else {
             showNotification(data.error || 'Login failed', 'error');
@@ -92,7 +92,7 @@ function checkLoginStatus() {
     const customerSession = sessionStorage.getItem('fitpickd_customer_session');
     
     if (customerSession === 'true') {
-        window.location.href = '/html/index.html';
+        window.location.href = '/index.html';
     }
 }
 

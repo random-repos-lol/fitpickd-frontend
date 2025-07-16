@@ -436,10 +436,10 @@ function updateUserNavigation() {
         // User is logged in
         userMenu.innerHTML = `
             <div class="hidden md:flex items-center space-x-4">
-                <a href="/html/wishlist.html" class="bg-transparent text-white px-4 py-2 rounded-md font-medium hover:bg-white hover:text-black transition-colors flex items-center" title="Wishlist">
+                <a href="/wishlist.html" class="bg-transparent text-white px-4 py-2 rounded-md font-medium hover:bg-white hover:text-black transition-colors flex items-center" title="Wishlist">
                     <i class="far fa-heart text-xl text-white fa-fw"></i>
                 </a>
-                <a href="/html/profile.html" class="bg-black text-white px-4 py-2 rounded-md font-medium hover:bg-gray-800 hover:text-white transition-colors flex items-center" title="Profile">
+                <a href="/profile.html" class="bg-black text-white px-4 py-2 rounded-md font-medium hover:bg-gray-800 hover:text-white transition-colors flex items-center" title="Profile">
                     <i class="far fa-user text-xl text-white fa-fw"></i>
                 </a>
             </div>
@@ -447,8 +447,8 @@ function updateUserNavigation() {
     } else {
         // User is not logged in - show sign in/sign up buttons
         userMenu.innerHTML = `
-            <a href="/html/signin.html" class="hidden md:inline-block bg-white text-black px-6 py-2 rounded-md font-medium hover:bg-gray-200 transition-colors">Sign In</a>
-            <a href="/html/signup.html" class="hidden md:inline-block bg-transparent text-white px-6 py-2 rounded-md font-medium hover:bg-white hover:text-black transition-colors">Sign Up</a>
+            <a href="/signin.html" class="hidden md:inline-block bg-white text-black px-6 py-2 rounded-md font-medium hover:bg-gray-200 transition-colors">Sign In</a>
+            <a href="/signup.html" class="hidden md:inline-block bg-transparent text-white px-6 py-2 rounded-md font-medium hover:bg-white hover:text-black transition-colors">Sign Up</a>
         `;
     }
 }
@@ -476,7 +476,7 @@ function logout() {
     updateUserNavigation();
     showNotification('You have been logged out.', 'info');
     setTimeout(() => {
-        window.location.replace('/html/index.html');
+        window.location.replace('/index.html');
     }, 1200);
 }
 
