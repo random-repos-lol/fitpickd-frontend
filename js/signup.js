@@ -241,3 +241,8 @@ function deleteCookie(name) {
 }
 
 // Removed duplicate updateUserNavigation function. Use main.js version. 
+document.addEventListener('DOMContentLoaded', function() {
+    initializeSignupForm();
+    initializePasswordToggles();
+    initializeGoogleOAuth();
+}); 
