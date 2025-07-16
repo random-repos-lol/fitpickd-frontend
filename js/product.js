@@ -81,7 +81,8 @@ async function loadProductDetails() {
     // Fetch product from backend
     let product = null;
     try {
-        const res = await fetch(`http://localhost:4000/products/available`);
+        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+        const res = await fetch(`${API_BASE}/products/available`);
         const products = await res.json();
         product = products.find(p => p._id === productId);
     } catch (err) {
@@ -311,7 +312,8 @@ async function loadRelatedProducts() {
     // Fetch all products from backend
     let products = [];
     try {
-        const res = await fetch('http://localhost:4000/products');
+        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+        const res = await fetch(`${API_BASE}/products`);
         products = await res.json();
     } catch (err) {
         // fallback: show nothing
@@ -356,7 +358,8 @@ async function loadRelatedProducts() {
     const customerId = sessionStorage.getItem('fitpickd_customer_id') || getCookie('fitpickd_customer_id');
     if (customerId) {
         try {
-            const res = await fetch(`http://localhost:4000/customers/${customerId}/wishlist`);
+            const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+            const res = await fetch(`${API_BASE}/customers/${customerId}/wishlist`);
             if (res.ok) {
                 const data = await res.json();
                 const wishlistProductIds = data.wishlist.map(product => product._id || product.id);
@@ -409,7 +412,8 @@ async function handleProductWishlistClick() {
     // Fetch current wishlist
     let wishlist = [];
     try {
-        const res = await fetch(`http://localhost:4000/customers/${customerId}/wishlist`);
+        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+        const res = await fetch(`${API_BASE}/customers/${customerId}/wishlist`);
         const data = await res.json();
         wishlist = (data && data.wishlist) ? data.wishlist.map(p => p._id) : [];
     } catch (err) {}
@@ -417,7 +421,8 @@ async function handleProductWishlistClick() {
     if (!isWishlisted) {
         // Add to wishlist
         try {
-            await fetch(`http://localhost:4000/customers/${customerId}/wishlist`, {
+            const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+            await fetch(`${API_BASE}/customers/${customerId}/wishlist`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ productId: currentProduct._id })
@@ -429,7 +434,8 @@ async function handleProductWishlistClick() {
     } else {
         // Remove from wishlist
         try {
-            await fetch(`http://localhost:4000/customers/${customerId}/wishlist`, {
+            const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+            await fetch(`${API_BASE}/customers/${customerId}/wishlist`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ productId: currentProduct._id })
@@ -508,7 +514,8 @@ async function updateWishlistButton() {
     if (!wishlistBtn) return;
     let wishlist = [];
     try {
-        const res = await fetch(`http://localhost:4000/customers/${customerId}/wishlist`);
+        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+        const res = await fetch(`${API_BASE}/customers/${customerId}/wishlist`);
         const data = await res.json();
         wishlist = (data && data.wishlist) ? data.wishlist.map(p => p._id) : [];
     } catch (err) {}

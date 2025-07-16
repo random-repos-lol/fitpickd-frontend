@@ -64,7 +64,8 @@ async function loadProducts() {
     if (!featuredProductsContainer) return;
 
     try {
-        const res = await fetch('http://localhost:4000/products');
+        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+        const res = await fetch(`${API_BASE}/products`);
         const products = await res.json();
         
         // Filter featured products and exclude out-of-stock products
@@ -293,7 +294,8 @@ async function handleWishlistClick(productId) {
         const isInWishlist = heartIcon.classList.contains('text-red-500');
         if (isInWishlist) {
             // Remove from wishlist
-            const response = await fetch(`http://localhost:4000/customers/${customerId}/wishlist`, {
+            const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+            const response = await fetch(`${API_BASE}/customers/${customerId}/wishlist`, {
                 method: 'DELETE',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ productId })
@@ -304,7 +306,8 @@ async function handleWishlistClick(productId) {
             }
         } else {
             // Add to wishlist
-            const response = await fetch(`http://localhost:4000/customers/${customerId}/wishlist`, {
+            const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+            const response = await fetch(`${API_BASE}/customers/${customerId}/wishlist`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ productId })
@@ -328,7 +331,8 @@ async function updateWishlistIcons() {
     if (!customerId) return;
 
     try {
-        const response = await fetch(`http://localhost:4000/customers/${customerId}/wishlist`);
+        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+        const response = await fetch(`${API_BASE}/customers/${customerId}/wishlist`);
         if (response.ok) {
             const data = await response.json();
             const wishlistProductIds = data.wishlist.map(product => product._id || product.id);

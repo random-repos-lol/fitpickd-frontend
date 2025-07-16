@@ -20,7 +20,8 @@ function initializeSignupForm() {
         }
         // Check if email or phone already exists in the database
         try {
-            const res = await fetch('http://localhost:4000/customers');
+            const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+            const res = await fetch(`${API_BASE}/customers`);
             if (res.ok) {
                 const users = await res.json();
                 if (users.some(u => u.email === email)) {
@@ -38,7 +39,8 @@ function initializeSignupForm() {
         }
         // Send to backend
         try {
-            const res = await fetch('http://localhost:4000/customers', {
+            const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+            const res = await fetch(`${API_BASE}/customers`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ firstName, email, phone, password })
@@ -200,7 +202,8 @@ function initializeGoogleOAuth() {
     if (!googleBtn) return;
     googleBtn.addEventListener('click', function() {
         // Redirect to backend Google OAuth endpoint
-        window.location.href = 'http://localhost:4000/auth/google';
+        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+        window.location.href = `${API_BASE}/auth/google`;
     });
 
     // On page load, check for verified_email in query params

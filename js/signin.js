@@ -41,8 +41,9 @@ function handleCustomerLogin(event) {
         return;
     }
     
+    const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
     // Call backend API for customer login
-    fetch('http://localhost:4000/customers/login', {
+    fetch(`${API_BASE}/customers/login`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',

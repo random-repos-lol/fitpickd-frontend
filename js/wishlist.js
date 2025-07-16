@@ -71,7 +71,8 @@ async function loadWishlist() {
     }
     let wishlistProducts = [];
     try {
-        const res = await fetch(`http://localhost:4000/customers/${customerId}/wishlist`);
+        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+        const res = await fetch(`${API_BASE}/customers/${customerId}/wishlist`);
         const data = await res.json();
         wishlistProducts = data.wishlist || [];
         // Filter out out-of-stock products from wishlist
@@ -165,7 +166,8 @@ function createWishlistProductCard(product, customerId) {
 // Remove item from wishlist (backend)
 async function removeFromWishlist(productId, customerId) {
     try {
-        await fetch(`http://localhost:4000/customers/${customerId}/wishlist`, {
+        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+        await fetch(`${API_BASE}/customers/${customerId}/wishlist`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ productId })
@@ -223,7 +225,8 @@ async function actuallyClearWishlist() {
     // Fetch current wishlist
     let wishlistProducts = [];
     try {
-        const res = await fetch(`http://localhost:4000/customers/${customerId}/wishlist`);
+        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+        const res = await fetch(`${API_BASE}/customers/${customerId}/wishlist`);
         const data = await res.json();
         wishlistProducts = data.wishlist || [];
     } catch (err) {
@@ -232,7 +235,8 @@ async function actuallyClearWishlist() {
     }
     // Remove each product
     for (const product of wishlistProducts) {
-        await fetch(`http://localhost:4000/customers/${customerId}/wishlist`, {
+        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+        await fetch(`${API_BASE}/customers/${customerId}/wishlist`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ productId: product._id })
@@ -324,7 +328,8 @@ async function handleWishlistClick(productId) {
     const customerId = sessionStorage.getItem('fitpickd_customer_id') || getCookie('fitpickd_customer_id');
     if (!customerId) return;
     try {
-        const response = await fetch(`http://localhost:4000/customers/${customerId}/wishlist`, {
+        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+        const response = await fetch(`${API_BASE}/customers/${customerId}/wishlist`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ productId })

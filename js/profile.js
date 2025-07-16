@@ -95,7 +95,8 @@ async function loadUserProfile() {
         return;
     }
     try {
-        const res = await fetch(`http://localhost:4000/customers`);
+        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+        const res = await fetch(`${API_BASE}/customers`);
         if (!res.ok) throw new Error('Failed to fetch user data');
         const users = await res.json();
         const user = users.find(u => u._id === customerId || u.id === customerId);
@@ -146,8 +147,9 @@ async function updateProfile() {
         return;
     }
     try {
+        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
         // Send PATCH request to backend to update user profile
-        const res = await fetch(`http://localhost:4000/customers/${customerId}`, {
+        const res = await fetch(`${API_BASE}/customers/${customerId}`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ firstName, email, phone })
@@ -247,8 +249,9 @@ async function verifyCurrentPassword() {
     }
 
     try {
+        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
         // Verify current password with backend
-        const res = await fetch(`http://localhost:4000/customers/${customerId}/verify-password`, {
+        const res = await fetch(`${API_BASE}/customers/${customerId}/verify-password`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ password: currentPassword })
@@ -298,8 +301,9 @@ async function updatePassword() {
     }
 
     try {
+        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
         // Update password in backend
-        const res = await fetch(`http://localhost:4000/customers/${customerId}/password`, {
+        const res = await fetch(`${API_BASE}/customers/${customerId}/password`, {
             method: 'PATCH',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ password: newPassword })
@@ -358,8 +362,9 @@ async function verifyDeletePassword() {
     }
 
     try {
+        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
         // Verify password with backend
-        const res = await fetch(`http://localhost:4000/customers/${customerId}/verify-password`, {
+        const res = await fetch(`${API_BASE}/customers/${customerId}/verify-password`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ password })
@@ -387,8 +392,9 @@ async function confirmDeleteAccount() {
     }
 
     try {
+        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
         // Delete account from backend
-        const res = await fetch(`http://localhost:4000/customers/${customerId}`, {
+        const res = await fetch(`${API_BASE}/customers/${customerId}`, {
             method: 'DELETE'
         });
 

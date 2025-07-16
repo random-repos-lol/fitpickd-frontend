@@ -33,7 +33,8 @@ async function handleGoogleVerification() {
     sessionStorage.setItem('forgot_password_email', email);
     
     // Redirect to Google OAuth for forgot password
-    const googleAuthURL = `http://localhost:4000/auth/google/forgot-password`;
+    const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+    const googleAuthURL = `${API_BASE}/auth/google/forgot-password`;
     window.location.href = googleAuthURL;
 }
 
@@ -78,7 +79,8 @@ function checkOAuthReturn() {
 // Check password for the given email
 async function checkPasswordForEmail(email) {
     try {
-        const response = await fetch(`http://localhost:4000/auth/forgot-password`, {
+        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+        const response = await fetch(`${API_BASE}/auth/forgot-password`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
