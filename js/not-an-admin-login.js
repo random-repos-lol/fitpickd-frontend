@@ -168,7 +168,7 @@ class AdminLogin {
                 
                 // Redirect to admin dashboard
                 setTimeout(() => {
-                    window.location.href = '/not-an-admin';
+                    window.location.href = 'https://fitpickd-backend.onrender.com/not-an-admin';
                 }, 1000);
             } else {
                 this.showError(data.error || 'Login failed. Please check your credentials.');
