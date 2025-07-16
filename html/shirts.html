@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shirts and Polos - FitPickd</title>
+    <meta name="description" content="Shop premium shirts and polos at FitPickd - Quality shirts and polos for the perfect fit">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body style="background-color: #F5F0E6;" class="font-opensans">
+    <!-- Desktop Hero Navigation Bar -->
+    <nav class="desktop-nav bg-black text-white sticky top-0 z-50 shadow-lg hidden md:block">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center h-16">
+          <!-- Logo -->
+          <div class="flex-shrink-0 flex items-center h-16">
+            <a href="/html/index.html" class="flex items-center h-16">
+              <img src="/images/FitPickd Logo.png" alt="FitPickd Logo" class="h-full w-auto mr-3 object-contain" style="max-height: 64px;">
+            </a>
+            <a href="/html/index.html" class="text-2xl font-bold hover:text-gray-300 transition-colors" style="color: #E6D0AC;">
+              FitPickd
+            </a>
+          </div>
+          <!-- Desktop Navigation -->
+          <div class="flex-1 flex justify-center">
+            <div class="flex items-baseline space-x-8">
+              <a href="/html/shop.html" class="text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">All Items</a>
+              <a href="/html/shirts.html" class="text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">Shirts and Polos</a>
+              <a href="/html/trousers.html" class="text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">Trousers</a>
+            </div>
+          </div>
+          <!-- User Menu -->
+          <div class="flex items-center space-x-4" id="user-menu">
+            <a href="/html/signin.html" class="bg-white text-black px-6 py-2 rounded-md font-medium hover:bg-gray-200 transition-colors">Sign In</a>
+            <a href="/html/signup.html" class="bg-transparent text-white px-6 py-2 rounded-md font-medium hover:bg-white hover:text-black transition-colors">Sign Up</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- Mobile Hero Navigation Bar -->
+    <nav class="mobile-nav bg-black text-white sticky top-0 z-50 shadow-lg md:hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center h-16 relative">
+        <div class="flex-1 flex justify-center items-center">
+          <a href="/html/index.html" class="flex items-center gap-2">
+            <img src="/images/FitPickd Logo.png" alt="FitPickd Logo" class="h-16 w-auto object-contain" style="max-height: 64px;">
+            <span class="text-2xl font-bold text-beige hover:text-gray-300 transition-colors" style="color: #E6D0AC;">FitPickd</span>
+          </a>
+        </div>
+        <div class="absolute right-0 top-0 h-full flex items-center pr-3">
+          <button id="mobile-menu-button" class="text-white hover:text-gray-300 focus:outline-none">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile Navigation Dropdown -->
+      <div id="mobile-menu" class="hidden">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-black">
+          <a href="/html/shop.html" class="text-white hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium">All Items</a>
+          <a href="/html/shirts.html" class="text-white hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Shirts and Polos</a>
+          <a href="/html/trousers.html" class="text-white hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Trousers</a>
+        </div>
+      </div>
+    </nav>
+
+
+    <!-- Shirts Header -->
+    <section class="bg-white py-12 pb-20 md:pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center">
+                <h1 class="text-4xl md:text-5xl font-bold text-black mb-4">Premium Shirts and Polos</h1>
+                <p class="text-lg text-gray-600 mb-8">Discover our collection of quality shirts and polos for every occasion</p>
+                
+                <!-- Search Bar -->
+                <div class="max-w-md mx-auto mb-8">
+                    <div class="relative">
+                        <input type="text" id="search-input" 
+                               placeholder="Search shirts and polos..." 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black form-input">
+                        <button class="absolute right-3 top-3 text-gray-400 hover:text-black">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Shirts Grid -->
+    <section class="py-12 pb-20 md:pb-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <!-- Products Count -->
+            <div class="mb-8">
+                <p id="products-count" class="text-gray-600">Showing all shirts and polos</p>
+            </div>
+
+            <!-- Products Grid -->
+            <div id="products-grid" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3 sm:gap-6">
+                <!-- Products will be loaded here -->
+            </div>
+
+            <!-- No Products Message -->
+            <div id="no-products" class="hidden text-center py-12">
+                <i class="fas fa-search text-6xl text-gray-300 mb-4"></i>
+                <h3 class="text-2xl font-semibold text-gray-600 mb-2">No shirts or polos found</h3>
+                <p class="text-gray-500">Try adjusting your search criteria</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Desktop Footer -->
+    <footer class="desktop-footer bg-black text-white py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <!-- Brand -->
+          <div class="col-span-1 md:col-span-2">
+            <h3 class="text-2xl font-bold mb-4">FitPickd</h3>
+            <p class="text-gray-300 mb-4">For the Fit You Own</p>
+            <p class="text-gray-300">Premium men's clothing from Guwahati</p>
+          </div>
+          <!-- Quick Links and Contact - Parallel on mobile -->
+          <div class="grid grid-cols-2 gap-4 md:col-span-2">
+            <!-- Quick Links -->
+            <div>
+              <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+              <ul class="space-y-2">
+                <li><a href="/html/about.html" class="text-gray-300 hover:text-white transition-colors">About</a></li>
+                <li><a href="/html/shop.html" class="text-gray-300 hover:text-white transition-colors">Shop</a></li>
+                <li><a href="/html/contact.html" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
+              </ul>
+            </div>
+            <!-- Contact Info -->
+            <div>
+              <h4 class="text-lg font-semibold mb-4">Contact</h4>
+              <div class="space-y-2 text-gray-300">
+                <div class="flex items-center">
+                  <i class="fab fa-instagram mr-2"></i>
+                  <a href="https://www.instagram.com/fitpickd" target="_blank" class="hover:text-white transition-colors">@fitpickd</a>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <a href="mailto:fitpickd@gmail.com" class="hover:text-white transition-colors">fitpickd@gmail.com</a>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-map-marker-alt mr-2"></i>
+                  <span>Guwahati 📍</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div class="mobile-footer md:hidden fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50">
+      <div class="flex justify-around items-center py-2">
+        <a href="/html/index.html" class="flex flex-col items-center px-3 py-2 text-black">
+          <i class="fas fa-home text-xl mb-1"></i>
+          <span class="text-xs">Home</span>
+        </a>
+        <a href="/html/shop.html" class="flex flex-col items-center px-3 py-2 text-gray-600 hover:text-black">
+          <i class="fas fa-shopping-bag text-xl mb-1"></i>
+          <span class="text-xs">Shop</span>
+        </a>
+        <a href="/html/wishlist.html" class="flex flex-col items-center px-3 py-2 text-gray-600 hover:text-black">
+          <i class="fas fa-heart text-xl mb-1"></i>
+          <span class="text-xs">Wishlist</span>
+        </a>
+        <a href="/html/profile.html" class="flex flex-col items-center px-3 py-2 text-gray-600 hover:text-black">
+          <i class="fas fa-user text-xl mb-1"></i>
+          <span class="text-xs">Profile</span>
+        </a>
+      </div>
+    </div>
+    <script src="../js/main.js"></script>
+    <script src="/js/category.js"></script>
+</body>
+</html> 

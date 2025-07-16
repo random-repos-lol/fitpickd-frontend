@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - FitPickd</title>
+    <meta name="description" content="Create your account at FitPickd - Premium men's clothing">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body style="background-color: #F5F0E6;" class="font-opensans">
+    <!-- Desktop Hero Navigation Bar -->
+    <nav class="desktop-nav bg-black text-white sticky top-0 z-50 shadow-lg hidden md:block">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex items-center h-16">
+          <!-- Logo -->
+          <div class="flex-shrink-0 flex items-center h-16">
+            <a href="/html/index.html" class="flex items-center h-16">
+              <img src="/images/FitPickd Logo.png" alt="FitPickd Logo" class="h-full w-auto mr-3 object-contain" style="max-height: 64px;">
+            </a>
+            <a href="/html/index.html" class="text-2xl font-bold hover:text-gray-300 transition-colors" style="color: #E6D0AC;">
+              FitPickd
+            </a>
+          </div>
+          <!-- Desktop Navigation -->
+          <div class="flex-1 flex justify-center">
+            <div class="flex items-baseline space-x-8">
+              <a href="/html/shop.html" class="text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">All Items</a>
+              <a href="/html/shirts.html" class="text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">Shirts and Polos</a>
+              <a href="/html/trousers.html" class="text-white hover:text-gray-300 px-3 py-2 rounded-md text-sm font-medium transition-colors">Trousers</a>
+            </div>
+          </div>
+          <!-- User Menu -->
+          <div class="flex items-center space-x-4" id="user-menu">
+            <a href="/html/signin.html" class="bg-white text-black px-6 py-2 rounded-md font-medium hover:bg-gray-200 transition-colors">Sign In</a>
+            <a href="/html/signup.html" class="bg-transparent text-white px-6 py-2 rounded-md font-medium hover:bg-white hover:text-black transition-colors">Sign Up</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+    <!-- Mobile Hero Navigation Bar -->
+    <nav class="mobile-nav bg-black text-white sticky top-0 z-50 shadow-lg md:hidden">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center h-16 relative">
+        <div class="flex-1 flex justify-center items-center">
+          <a href="/html/index.html" class="flex items-center gap-2">
+            <img src="/images/FitPickd Logo.png" alt="FitPickd Logo" class="h-16 w-auto object-contain" style="max-height: 64px;">
+            <span class="text-2xl font-bold text-beige hover:text-gray-300 transition-colors" style="color: #E6D0AC;">FitPickd</span>
+          </a>
+        </div>
+        <div class="absolute right-0 top-0 h-full flex items-center pr-3">
+          <button id="mobile-menu-button" class="text-white hover:text-gray-300 focus:outline-none">
+            <i class="fas fa-bars text-xl"></i>
+          </button>
+        </div>
+      </div>
+      <!-- Mobile Navigation Dropdown -->
+      <div id="mobile-menu" class="hidden">
+        <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-black">
+          <a href="/html/shop.html" class="text-white hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium">All Items</a>
+          <a href="/html/shirts.html" class="text-white hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Shirts and Polos</a>
+          <a href="/html/trousers.html" class="text-white hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium">Trousers</a>
+        </div>
+      </div>
+    </nav>
+
+
+    <!-- Sign Up Section -->
+    <section class="min-h-screen flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 pb-20 md:pb-12">
+        <div class="max-w-md w-full space-y-8">
+            <!-- Header -->
+            <div class="text-center">
+                <h2 class="text-3xl font-bold text-black mb-2">Create Account</h2>
+                <p class="text-gray-600">Join FitPickd for the perfect fit</p>
+            </div>
+
+            <!-- Sign Up Form -->
+            <form id="signup-form" class="bg-white rounded-lg shadow-lg p-4 sm:p-8 space-y-6 w-full max-w-full">
+                <!-- First Name -->
+                <div>
+                    <label for="first-name" class="block text-sm font-medium text-gray-700 mb-2">
+                        First Name *
+                    </label>
+                    <input type="text" id="first-name" name="first-name" required
+                           class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                           placeholder="Enter your first name">
+                </div>
+
+                <!-- Email -->
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
+                        Email Address *
+                    </label>
+                    <div class="flex items-center space-x-2">
+                        <input type="email" id="email" name="email" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                               placeholder="Enter your email address" readonly>
+                        <button type="button" id="google-verify-btn" class="bg-white border border-gray-300 rounded-lg px-3 py-2 text-sm font-medium text-black hover:bg-gray-100 flex items-center">
+                            <img src="https://developers.google.com/identity/images/g-logo.png" alt="Google" class="h-5 w-5 mr-2">Verify with Google
+                        </button>
+                    </div>
+                    <input type="hidden" id="verified-email" name="verified-email">
+                </div>
+
+                <!-- Phone Number -->
+                <div>
+                    <label for="phone" class="block text-sm font-medium text-gray-700 mb-2">
+                        Phone Number *
+                    </label>
+                    <div class="flex">
+                        <span class="inline-flex items-center px-3 bg-gray-200 text-black rounded-l-lg border border-gray-300 border-r-0 select-none">
+                            +91
+                        </span>
+                        <input type="tel" id="phone" name="phone" required maxlength="10" minlength="10"
+                               class="w-full px-4 py-3 border border-gray-300 rounded-r-lg focus:outline-none focus:border-black transition-colors"
+                               placeholder="Enter your phone number">
+                    </div>
+                </div>
+
+                <!-- Password -->
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
+                        Password *
+                    </label>
+                    <div class="relative">
+                        <input type="password" id="password" name="password" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors pr-12"
+                               placeholder="Create a password">
+                        <button type="button" id="toggle-password" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                    <p class="text-sm text-gray-500 mt-1">Password must be at least 6 characters long</p>
+                </div>
+
+                <!-- Confirm Password -->
+                <div>
+                    <label for="confirm-password" class="block text-sm font-medium text-gray-700 mb-2">
+                        Confirm Password *
+                    </label>
+                    <div class="relative">
+                        <input type="password" id="confirm-password" name="confirm-password" required
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors pr-12"
+                               placeholder="Confirm your password">
+                        <button type="button" id="toggle-confirm-password" class="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" 
+                        class="w-full bg-black text-white py-3 px-4 min-h-[44px] rounded-lg font-medium hover:bg-gray-800 transition-colors text-base sm:text-lg">
+                    Create Account
+                </button>
+
+                <!-- Error Message -->
+                <div id="error-message" class="hidden text-red-600 text-sm text-center"></div>
+            </form>
+
+            <!-- Sign In Link -->
+            <div class="text-center">
+                <p class="text-gray-600">
+                    Already have an account? 
+                    <a href="/html/signin.html" class="text-black font-medium hover:underline">Sign In</a>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Desktop Footer -->
+    <footer class="desktop-footer bg-black text-white py-12">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <!-- Brand -->
+          <div class="col-span-1 md:col-span-2">
+            <h3 class="text-2xl font-bold mb-4">FitPickd</h3>
+            <p class="text-gray-300 mb-4">For the Fit You Own</p>
+            <p class="text-gray-300">Premium men's clothing from Guwahati</p>
+          </div>
+          <!-- Quick Links and Contact - Parallel on mobile -->
+          <div class="grid grid-cols-2 gap-4 md:col-span-2">
+            <!-- Quick Links -->
+            <div>
+              <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+              <ul class="space-y-2">
+                <li><a href="/html/about.html" class="text-gray-300 hover:text-white transition-colors">About</a></li>
+                <li><a href="/html/shop.html" class="text-gray-300 hover:text-white transition-colors">Shop</a></li>
+                <li><a href="/html/contact.html" class="text-gray-300 hover:text-white transition-colors">Contact</a></li>
+              </ul>
+            </div>
+            <!-- Contact Info -->
+            <div>
+              <h4 class="text-lg font-semibold mb-4">Contact</h4>
+              <div class="space-y-2 text-gray-300">
+                <div class="flex items-center">
+                  <i class="fab fa-instagram mr-2"></i>
+                  <a href="https://www.instagram.com/fitpickd" target="_blank" class="hover:text-white transition-colors">@fitpickd</a>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-envelope mr-2"></i>
+                  <a href="mailto:fitpickd@gmail.com" class="hover:text-white transition-colors">fitpickd@gmail.com</a>
+                </div>
+                <div class="flex items-center">
+                  <i class="fas fa-map-marker-alt mr-2"></i>
+                  <span>Guwahati 📍</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <style>
+      .desktop-nav, .desktop-footer { display: none; }
+      .mobile-nav, .mobile-footer { display: block; }
+      @media (min-width: 768px) {
+        .desktop-nav, .desktop-footer { display: block; }
+        .mobile-nav, .mobile-footer { display: none; }
+      }
+    </style>
+    <script src="../js/main.js"></script>
+    <script src="/js/signup.js"></script>
+    
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+</body>
+</html> 
