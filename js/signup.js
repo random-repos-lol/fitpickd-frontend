@@ -241,8 +241,26 @@ function deleteCookie(name) {
 }
 
 // Removed duplicate updateUserNavigation function. Use main.js version. 
+function initializeSignupValidationListeners() {
+    const fields = [
+        document.getElementById('first-name'),
+        document.getElementById('email'),
+        document.getElementById('phone'),
+        document.getElementById('password'),
+        document.getElementById('confirm-password')
+    ];
+    fields.forEach(field => {
+        if (field) {
+            field.addEventListener('input', enableCreateAccountIfValid);
+        }
+    });
+}
+
+// Ensure all signup features are initialized on DOMContentLoaded
 document.addEventListener('DOMContentLoaded', function() {
     initializeSignupForm();
     initializePasswordToggles();
     initializeGoogleOAuth();
+    initializeSignupValidationListeners(); // <-- Add this line
+    enableCreateAccountIfValid(); // Set initial state
 }); 
