@@ -560,3 +560,33 @@ function showProductNotification(message, type = 'info') {
         });
     }, 3000);
 }
+
+// Restore updateWishlistButton function
+async function updateWishlistButton() {
+    if (!currentProduct) return;
+    const wishlistBtn = document.getElementById('wishlist-btn');
+    const customerId = sessionStorage.getItem('fitpickd_customer_id') || getCookie('fitpickd_customer_id');
+    if (!wishlistBtn) return;
+    if (!customerId) return; // Prevent fetch if not signed in
+    let wishlist = [];
+    try {
+        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
+        const res = await fetch(`${API_BASE}/customers/${customerId}/wishlist`);
+        const data = await res.json();
+        wishlist = (data && data.wishlist) ? data.wishlist.map(p => p._id) : [];
+    } catch (err) {}
+    const isInWishlist = wishlist.includes(currentProduct._id);
+    if (isInWishlist) {
+        wishlistBtn.innerHTML = '<i class="fas fa-heart mr-2 text-red-500"></i>Remove from Wishlist';
+        wishlistBtn.classList.add('bg-red-50', 'border-red-500', 'text-red-500');
+        wishlistBtn.classList.remove('border-black', 'text-black');
+    } else {
+        wishlistBtn.innerHTML = '<i class="fas fa-heart mr-2"></i>Add to Wishlist';
+        wishlistBtn.classList.remove('bg-red-50', 'border-red-500', 'text-red-500');
+        wishlistBtn.classList.add('border-black', 'text-black');
+    }
+    // Remove any previous event listeners by replacing the node
+    const newBtn = wishlistBtn.cloneNode(true);
+    wishlistBtn.parentNode.replaceChild(newBtn, wishlistBtn);
+    newBtn.addEventListener('click', handleProductWishlistClick);
+}
