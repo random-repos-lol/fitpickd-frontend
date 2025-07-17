@@ -159,9 +159,17 @@ function updateProductDisplay() {
             const popupImg = document.getElementById('mobile-image-popup-img');
             const closeBtn = document.getElementById('close-mobile-image-popup');
             mobileImages.forEach(img => {
-                img.addEventListener('click', function() {
-                    popupImg.src = this.src;
-                    popupModal.classList.add('active');
+                img.addEventListener('click', function(e) {
+                    // Only open popup if click is in center 60% of image
+                    const rect = img.getBoundingClientRect();
+                    const x = e.touches ? e.touches[0].clientX : e.clientX;
+                    const relativeX = x - rect.left;
+                    const width = rect.width;
+                    if (relativeX > width * 0.2 && relativeX < width * 0.8) {
+                        popupImg.src = this.src;
+                        popupModal.classList.add('active');
+                    }
+                    // Otherwise, do nothing (edge click handled by slider)
                 });
             });
             // Close modal on close button or overlay click
