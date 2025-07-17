@@ -160,18 +160,50 @@ function updateProductDisplay() {
             const closeBtn = document.getElementById('close-mobile-image-popup');
             mobileImages.forEach(img => {
                 img.addEventListener('click', function(e) {
-                    // Always stop propagation so wrapper click doesn't fire
                     e.stopPropagation();
-                    // Only open popup if click is in center 60% of image
                     const rect = img.getBoundingClientRect();
                     const x = e.touches ? e.touches[0].clientX : e.clientX;
                     const relativeX = x - rect.left;
                     const width = rect.width;
-                    if (relativeX > width * 0.2 && relativeX < width * 0.8) {
+                    // Edge navigation logic on image
+                    if (relativeX < width * 0.2 && currentIndex > 0) {
+                        // Far left 20%: previous image
+                        currentIndex--;
+                        const wrapper = document.getElementById('mobile-image-wrapper');
+                        wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+                        // Update indicators and nav buttons
+                        const indicators = document.querySelectorAll('#image-indicators button');
+                        indicators.forEach((indicator, idx) => {
+                            indicator.classList.toggle('bg-opacity-100', idx === currentIndex);
+                            indicator.classList.toggle('bg-opacity-50', idx !== currentIndex);
+                        });
+                        const prevBtn = document.getElementById('prev-image');
+                        const nextBtn = document.getElementById('next-image');
+                        prevBtn.style.display = currentIndex === 0 ? 'none' : 'block';
+                        nextBtn.style.display = currentIndex === productImages.length - 1 ? 'none' : 'block';
+                        return;
+                    } else if (relativeX > width * 0.8 && currentIndex < productImages.length - 1) {
+                        // Far right 20%: next image
+                        currentIndex++;
+                        const wrapper = document.getElementById('mobile-image-wrapper');
+                        wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
+                        // Update indicators and nav buttons
+                        const indicators = document.querySelectorAll('#image-indicators button');
+                        indicators.forEach((indicator, idx) => {
+                            indicator.classList.toggle('bg-opacity-100', idx === currentIndex);
+                            indicator.classList.toggle('bg-opacity-50', idx !== currentIndex);
+                        });
+                        const prevBtn = document.getElementById('prev-image');
+                        const nextBtn = document.getElementById('next-image');
+                        prevBtn.style.display = currentIndex === 0 ? 'none' : 'block';
+                        nextBtn.style.display = currentIndex === productImages.length - 1 ? 'none' : 'block';
+                        return;
+                    } else if (relativeX > width * 0.2 && relativeX < width * 0.8) {
+                        // Center 60%: open popup
                         popupImg.src = this.src;
                         popupModal.classList.add('active');
+                        return;
                     }
-                    // Otherwise, do nothing (edge click handled by slider)
                 });
             });
             // Close modal on close button or overlay click
@@ -278,29 +310,8 @@ function initializeMobileSlider() {
         }
     }
 
-    // --- Add edge click navigation for mobile ---
-    if (window.innerWidth <= 767) {
-        // Remove any previous click event listener
-        wrapper.onclick = null;
-        wrapper.addEventListener('click', function(e) {
-            // Only handle if not clicking on an image
-            if (e.target.tagName.toLowerCase() === 'img') return;
-            const rect = wrapper.getBoundingClientRect();
-            const x = e.touches ? e.touches[0].clientX : e.clientX;
-            const relativeX = x - rect.left;
-            const width = rect.width;
-            if (relativeX < width * 0.2 && currentIndex > 0) {
-                // Far left 20%: previous image
-                currentIndex--;
-                updateSlider();
-            } else if (relativeX > width * 0.8 && currentIndex < totalImages - 1) {
-                // Far right 20%: next image
-                currentIndex++;
-                updateSlider();
-            }
-        });
-    }
-    // --- End edge click navigation ---
+    // --- Remove edge click navigation for mobile on wrapper ---
+    // (No longer needed, logic is now in image click handler)
     
     // Initialize
     updateSlider();
