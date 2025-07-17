@@ -160,6 +160,8 @@ function updateProductDisplay() {
             const closeBtn = document.getElementById('close-mobile-image-popup');
             mobileImages.forEach(img => {
                 img.addEventListener('click', function(e) {
+                    // Always stop propagation so wrapper click doesn't fire
+                    e.stopPropagation();
                     // Only open popup if click is in center 60% of image
                     const rect = img.getBoundingClientRect();
                     const x = e.touches ? e.touches[0].clientX : e.clientX;
@@ -168,7 +170,6 @@ function updateProductDisplay() {
                     if (relativeX > width * 0.2 && relativeX < width * 0.8) {
                         popupImg.src = this.src;
                         popupModal.classList.add('active');
-                        e.stopPropagation(); // Prevent edge click handler from firing
                     }
                     // Otherwise, do nothing (edge click handled by slider)
                 });
@@ -279,7 +280,11 @@ function initializeMobileSlider() {
 
     // --- Add edge click navigation for mobile ---
     if (window.innerWidth <= 767) {
+        // Remove any previous click event listener
+        wrapper.onclick = null;
         wrapper.addEventListener('click', function(e) {
+            // Only handle if not clicking on an image
+            if (e.target.tagName.toLowerCase() === 'img') return;
             const rect = wrapper.getBoundingClientRect();
             const x = e.touches ? e.touches[0].clientX : e.clientX;
             const relativeX = x - rect.left;
