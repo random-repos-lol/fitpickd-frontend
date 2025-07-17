@@ -168,6 +168,7 @@ function updateProductDisplay() {
                     if (relativeX > width * 0.2 && relativeX < width * 0.8) {
                         popupImg.src = this.src;
                         popupModal.classList.add('active');
+                        e.stopPropagation(); // Prevent edge click handler from firing
                     }
                     // Otherwise, do nothing (edge click handled by slider)
                 });
@@ -568,6 +569,7 @@ async function updateWishlistButton() {
     const wishlistBtn = document.getElementById('wishlist-btn');
     const customerId = sessionStorage.getItem('fitpickd_customer_id') || getCookie('fitpickd_customer_id');
     if (!wishlistBtn) return;
+    if (!customerId) return; // Prevent fetch if not signed in
     let wishlist = [];
     try {
         const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
