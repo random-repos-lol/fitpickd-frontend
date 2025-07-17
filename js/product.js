@@ -152,76 +152,6 @@ function updateProductDisplay() {
                 goToImage(idx);
             }
         });
-        // --- Add mobile image popup logic ---
-        if (window.innerWidth <= 767) {
-            const mobileImages = mobileImageContainer.querySelectorAll('img.mobile-product-img');
-            const popupModal = document.getElementById('mobile-image-popup-modal');
-            const popupImg = document.getElementById('mobile-image-popup-img');
-            const closeBtn = document.getElementById('close-mobile-image-popup');
-            mobileImages.forEach(img => {
-                img.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    const rect = img.getBoundingClientRect();
-                    const x = e.touches ? e.touches[0].clientX : e.clientX;
-                    const relativeX = x - rect.left;
-                    const width = rect.width;
-                    // Edge navigation logic on image
-                    if (relativeX < width * 0.2 && currentIndex > 0) {
-                        // Far left 20%: previous image
-                        currentIndex--;
-                        const wrapper = document.getElementById('mobile-image-wrapper');
-                        wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
-                        // Update indicators and nav buttons
-                        const indicators = document.querySelectorAll('#image-indicators button');
-                        indicators.forEach((indicator, idx) => {
-                            indicator.classList.toggle('bg-opacity-100', idx === currentIndex);
-                            indicator.classList.toggle('bg-opacity-50', idx !== currentIndex);
-                        });
-                        const prevBtn = document.getElementById('prev-image');
-                        const nextBtn = document.getElementById('next-image');
-                        prevBtn.style.display = currentIndex === 0 ? 'none' : 'block';
-                        nextBtn.style.display = currentIndex === productImages.length - 1 ? 'none' : 'block';
-                        return;
-                    } else if (relativeX > width * 0.8 && currentIndex < productImages.length - 1) {
-                        // Far right 20%: next image
-                        currentIndex++;
-                        const wrapper = document.getElementById('mobile-image-wrapper');
-                        wrapper.style.transform = `translateX(-${currentIndex * 100}%)`;
-                        // Update indicators and nav buttons
-                        const indicators = document.querySelectorAll('#image-indicators button');
-                        indicators.forEach((indicator, idx) => {
-                            indicator.classList.toggle('bg-opacity-100', idx === currentIndex);
-                            indicator.classList.toggle('bg-opacity-50', idx !== currentIndex);
-                        });
-                        const prevBtn = document.getElementById('prev-image');
-                        const nextBtn = document.getElementById('next-image');
-                        prevBtn.style.display = currentIndex === 0 ? 'none' : 'block';
-                        nextBtn.style.display = currentIndex === productImages.length - 1 ? 'none' : 'block';
-                        return;
-                    } else if (relativeX > width * 0.2 && relativeX < width * 0.8) {
-                        // Center 60%: open popup
-                        popupImg.src = this.src;
-                        popupModal.classList.add('active');
-                        return;
-                    }
-                });
-            });
-            // Close modal on close button or overlay click
-            if (closeBtn) {
-                closeBtn.addEventListener('click', function() {
-                    popupModal.classList.remove('active');
-                    popupImg.src = '';
-                });
-            }
-            if (popupModal) {
-                popupModal.addEventListener('click', function(e) {
-                    if (e.target === popupModal) {
-                        popupModal.classList.remove('active');
-                        popupImg.src = '';
-                    }
-                });
-            }
-        }
     }
     // Update size options
     updateSizeOptions();
@@ -310,9 +240,50 @@ function initializeMobileSlider() {
         }
     }
 
-    // --- Remove edge click navigation for mobile on wrapper ---
-    // (No longer needed, logic is now in image click handler)
-    
+    // --- Mobile image click handler for edge navigation and popup ---
+    if (window.innerWidth <= 767) {
+        const mobileImages = wrapper.querySelectorAll('img.mobile-product-img');
+        const popupModal = document.getElementById('mobile-image-popup-modal');
+        const popupImg = document.getElementById('mobile-image-popup-img');
+        const closeBtn = document.getElementById('close-mobile-image-popup');
+        mobileImages.forEach(img => {
+            img.addEventListener('click', function(e) {
+                e.stopPropagation();
+                const rect = img.getBoundingClientRect();
+                const x = e.touches ? e.touches[0].clientX : e.clientX;
+                const relativeX = x - rect.left;
+                const width = rect.width;
+                if (relativeX < width * 0.2 && currentIndex > 0) {
+                    currentIndex--;
+                    updateSlider();
+                    return;
+                } else if (relativeX > width * 0.8 && currentIndex < productImages.length - 1) {
+                    currentIndex++;
+                    updateSlider();
+                    return;
+                } else if (relativeX > width * 0.2 && relativeX < width * 0.8) {
+                    popupImg.src = this.src;
+                    popupModal.classList.add('active');
+                    return;
+                }
+            });
+        });
+        if (closeBtn) {
+            closeBtn.addEventListener('click', function() {
+                popupModal.classList.remove('active');
+                popupImg.src = '';
+            });
+        }
+        if (popupModal) {
+            popupModal.addEventListener('click', function(e) {
+                if (e.target === popupModal) {
+                    popupModal.classList.remove('active');
+                    popupImg.src = '';
+                }
+            });
+        }
+    }
+    // --- End mobile image click handler ---
     // Initialize
     updateSlider();
 }
