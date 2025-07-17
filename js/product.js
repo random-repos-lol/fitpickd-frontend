@@ -284,13 +284,13 @@ function initializeMobileSlider() {
             const x = e.touches ? e.touches[0].clientX : e.clientX;
             const relativeX = x - rect.left;
             const width = rect.width;
-            if (relativeX < width * 0.2 && currentIndex > 0) {
-                // Far left 20%
-                currentIndex--;
-                updateSlider();
-            } else if (relativeX > width * 0.8 && currentIndex < totalImages - 1) {
-                // Far right 20%
+            if (relativeX > width * 0.8 && currentIndex < totalImages - 1) {
+                // Far right 20%: next image
                 currentIndex++;
+                updateSlider();
+            } else if (relativeX < width * 0.2 && currentIndex > 0) {
+                // Far left 20%: previous image
+                currentIndex--;
                 updateSlider();
             }
         });
@@ -543,67 +543,20 @@ function showProductNotification(message, type = 'info') {
             <span>${message}</span>
         </div>
     `;
-    
-    // Add to page
+    // Append notification to body
     document.body.appendChild(notification);
     
-    // Animate in
+    // Animate notification in
     setTimeout(() => {
         notification.classList.remove('translate-y-[-100px]', 'opacity-0');
-    }, 100);
+        notification.classList.add('translate-y-0', 'opacity-100');
+    }, 10);
     
-    // Remove after 3 seconds
+    // Remove notification after 3 seconds
     setTimeout(() => {
         notification.classList.add('translate-y-[-100px]', 'opacity-0');
-        setTimeout(() => {
-            if (notification.parentNode) {
-                notification.parentNode.removeChild(notification);
-            }
-        }, 300);
+        notification.addEventListener('transitionend', () => {
+            notification.remove();
+        });
     }, 3000);
 }
-
-// Update wishlist button appearance (backend)
-async function updateWishlistButton() {
-    if (!currentProduct) return;
-    const wishlistBtn = document.getElementById('wishlist-btn');
-    const customerId = sessionStorage.getItem('fitpickd_customer_id') || getCookie('fitpickd_customer_id');
-    if (!wishlistBtn) return;
-    if (!customerId) return; // Prevent fetch if not signed in
-    let wishlist = [];
-    try {
-        const API_BASE = window.location.hostname === 'localhost' ? 'http://localhost:4000' : 'https://fitpickd-backend.onrender.com';
-        const res = await fetch(`${API_BASE}/customers/${customerId}/wishlist`);
-        const data = await res.json();
-        wishlist = (data && data.wishlist) ? data.wishlist.map(p => p._id) : [];
-    } catch (err) {}
-    const isInWishlist = wishlist.includes(currentProduct._id);
-    if (isInWishlist) {
-        wishlistBtn.innerHTML = '<i class="fas fa-heart mr-2 text-red-500"></i>Remove from Wishlist';
-        wishlistBtn.classList.add('bg-red-50', 'border-red-500', 'text-red-500');
-        wishlistBtn.classList.remove('border-black', 'text-black');
-    } else {
-        wishlistBtn.innerHTML = '<i class="fas fa-heart mr-2"></i>Add to Wishlist';
-        wishlistBtn.classList.remove('bg-red-50', 'border-red-500', 'text-red-500');
-        wishlistBtn.classList.add('border-black', 'text-black');
-    }
-    // Remove any previous event listeners by replacing the node
-    const newBtn = wishlistBtn.cloneNode(true);
-    wishlistBtn.parentNode.replaceChild(newBtn, wishlistBtn);
-    newBtn.addEventListener('click', handleProductWishlistClick);
-}
-
-// Export functions for use in other files
-window.ProductDetail = {
-    selectSize,
-    loadProductDetails,
-    handleProductWishlistClick
-}; 
-
-function getCookie(name) {
-    const match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
-    return match ? decodeURIComponent(match[2]) : null;
-}
-function deleteCookie(name) {
-    document.cookie = `${name}=; Max-Age=0; path=/`;
-} 
