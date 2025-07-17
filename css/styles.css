@@ -344,3 +344,55 @@ body {
     padding-bottom: 4.5rem !important; /* Ensures content is not hidden behind the fixed mobile nav bar */
   }
 } 
+
+/* Portrait ratio for mobile product images */
+@media (max-width: 767px) {
+  #mobile-image-container img {
+    aspect-ratio: 4/5;
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+    border-radius: 1rem;
+    background: #fff;
+  }
+  #mobile-image-popup-modal {
+    display: flex;
+  }
+}
+
+/* Hide popup modal on desktop */
+@media (min-width: 768px) {
+  #mobile-image-popup-modal {
+    display: none !important;
+  }
+}
+
+#mobile-image-popup-modal {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+}
+#mobile-image-popup-modal.active {
+  display: flex;
+}
+#mobile-image-popup-img {
+  max-width: 90vw;
+  max-height: 80vh;
+  border-radius: 1rem;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.3);
+}
+#close-mobile-image-popup {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  color: #fff;
+  font-size: 2rem;
+  background: none;
+  border: none;
+  z-index: 10000;
+  cursor: pointer;
+} 

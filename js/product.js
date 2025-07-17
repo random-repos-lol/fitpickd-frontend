@@ -131,7 +131,7 @@ function updateProductDisplay() {
             <div class="flex transition-transform duration-300 ease-in-out" id="mobile-image-wrapper">
                 ${productImages.map((url, idx) => `
                     <div class="w-full flex-shrink-0">
-                        <img src="${url}" alt="${currentProduct.name} - Image ${idx + 1}" class="w-full h-80 object-cover">
+                        <img src="${url}" alt="${currentProduct.name} - Image ${idx + 1}" class="w-full h-80 object-cover mobile-product-img" data-img-idx="${idx}">
                     </div>
                 `).join('')}
             </div>
@@ -152,6 +152,34 @@ function updateProductDisplay() {
                 goToImage(idx);
             }
         });
+        // --- Add mobile image popup logic ---
+        if (window.innerWidth <= 767) {
+            const mobileImages = mobileImageContainer.querySelectorAll('img.mobile-product-img');
+            const popupModal = document.getElementById('mobile-image-popup-modal');
+            const popupImg = document.getElementById('mobile-image-popup-img');
+            const closeBtn = document.getElementById('close-mobile-image-popup');
+            mobileImages.forEach(img => {
+                img.addEventListener('click', function() {
+                    popupImg.src = this.src;
+                    popupModal.classList.add('active');
+                });
+            });
+            // Close modal on close button or overlay click
+            if (closeBtn) {
+                closeBtn.addEventListener('click', function() {
+                    popupModal.classList.remove('active');
+                    popupImg.src = '';
+                });
+            }
+            if (popupModal) {
+                popupModal.addEventListener('click', function(e) {
+                    if (e.target === popupModal) {
+                        popupModal.classList.remove('active');
+                        popupImg.src = '';
+                    }
+                });
+            }
+        }
     }
     // Update size options
     updateSizeOptions();
@@ -239,6 +267,26 @@ function initializeMobileSlider() {
             }
         }
     }
+
+    // --- Add edge click navigation for mobile ---
+    if (window.innerWidth <= 767) {
+        wrapper.addEventListener('click', function(e) {
+            const rect = wrapper.getBoundingClientRect();
+            const x = e.touches ? e.touches[0].clientX : e.clientX;
+            const relativeX = x - rect.left;
+            const width = rect.width;
+            if (relativeX < width * 0.2 && currentIndex > 0) {
+                // Far left 20%
+                currentIndex--;
+                updateSlider();
+            } else if (relativeX > width * 0.8 && currentIndex < totalImages - 1) {
+                // Far right 20%
+                currentIndex++;
+                updateSlider();
+            }
+        });
+    }
+    // --- End edge click navigation ---
     
     // Initialize
     updateSlider();
